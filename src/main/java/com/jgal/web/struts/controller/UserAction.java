@@ -18,7 +18,6 @@ public class UserAction extends ActionSupport {
     @Autowired
     private ServiceFacade userService;
 
-    @SuppressWarnings("unchecked")
     public String execute() throws Exception {
         users = userService.retrieveUsers();
         return SUCCESS;
