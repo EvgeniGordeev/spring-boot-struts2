@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE struts PUBLIC
-        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
-        "http://struts.apache.org/dtds/struts-2.0.dtd">
-
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN" "http://struts.apache.org/dtds/struts-2.5.dtd">
 <struts>
 
-    <constant name="struts.devMode" value="true" />
-    <constant name="struts.objectFactory" value="spring" />
-    <constant name="struts.action.excludePattern" value="/api/.*,/"/>
+  <constant name="struts.devMode" value="true"/>
+  <constant name="struts.objectFactory" value="spring"/>
+  <constant name="struts.action.excludePattern" value="/api/.*,/"/>
+  <!--makes struts2-convention-plugin work in embedded jar-->
+  <constant name="struts.convention.exclude.parentClassLoader" value="false"/>
+  <constant name="struts.mapper.action.prefix.enabled" value="true"/>
+  <constant name="struts.enable.DynamicMethodInvocation" value="true"/>
 
-    <package name="default" extends="struts-default">
-        <action name="users" class="com.jgal.web.struts.controller.UserAction" method="execute">
-            <result name="success">/users.jsp</result>
-        </action>
-    </package>
 </struts>
