@@ -2,8 +2,8 @@
 # Project Specific
 ######################
 target/www/**
-src/test/javascript/coverage/
-src/test/javascript/PhantomJS*/
+app/src/test/javascript/coverage/
+app/src/test/javascript/PhantomJS*/
 
 ######################
 # Node
@@ -35,7 +35,7 @@ local.properties
 .settings/
 .loadpath
 .factorypath
-src/main/resources/rebel.xml
+app/src/main/resources/rebel.xml
 
 # External tool builders
 .externalToolBuilders/**
