@@ -9,5 +9,7 @@
   <constant name="struts.convention.exclude.parentClassLoader" value="false"/>
   <constant name="struts.mapper.action.prefix.enabled" value="true"/>
   <constant name="struts.enable.DynamicMethodInvocation" value="true"/>
+  <constant name="struts.convention.action.packages" value="com.jgal"/>
+  <bean type="com.opensymphony.xwork2.util.finder.ClassFinderFactory" class="com.jgal.web.struts.struts.util.ReflectionClassFinderFactory"/>
 
 </struts>
