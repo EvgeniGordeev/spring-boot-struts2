@@ -1,26 +1,29 @@
 package com.jgal.web.struts.struts.util;
 
 import com.opensymphony.xwork2.Action;
+import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.util.finder.ClassFinder;
 import com.opensymphony.xwork2.util.finder.ClassLoaderInterface;
 import com.opensymphony.xwork2.util.finder.Test;
 import org.reflections.Reflections;
+import org.reflections.scanners.SubTypesScanner;
+import org.reflections.util.ConfigurationBuilder;
+import org.reflections.util.FilterBuilder;
+import org.springframework.lang.Nullable;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * ReflectionClassFinder.
  *
  * @author evgeni.gordeev
- * @version 8.0
+ * @version 1.0.0
  * @since 8/9/18
  */
 public class ReflectionClassFinder implements ClassFinder {
@@ -79,13 +82,19 @@ public class ReflectionClassFinder implements ClassFinder {
      * @return struts actions classes
      */
     @Override
-    public List<Class> findClasses(Test<ClassInfo> test) {
-        Set<Class> classes = new HashSet<>();
-        for (String pack : packages) {
-            Reflections reflections = new Reflections(pack);
-            classes.addAll(reflections.getSubTypesOf(Action.class));
-        }
-        return new ArrayList<>(classes);
+    public List<Class> findClasses(@Nullable Test<ClassInfo> test) {
+        Reflections reflections = new Reflections(
+            new ConfigurationBuilder()
+                .forPackages(packages)
+                .filterInputsBy(new FilterBuilder().includePackage(packages).excludePackage(ActionSupport.class))
+                .setScanners(new SubTypesScanner()/*.filterResultsBy(filter)*/));
+        // replacing with stream api
+        // filterResultsBy is non-intuitive, see https://github.com/ronmamo/reflections/issues/26
+        return reflections
+            .getSubTypesOf(Action.class)
+            .stream()
+            .filter(clazz -> !clazz.equals(ActionSupport.class))
+            .collect(Collectors.toList());
     }
 
     @Override

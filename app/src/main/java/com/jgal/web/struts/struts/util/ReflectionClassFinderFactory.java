@@ -16,7 +16,7 @@ import java.util.Set;
  * ReflectionClassFinderFactory.
  *
  * @author evgeni.gordeev
- * @version 8.0
+ * @version 1.0.0
  * @since 8/9/18
  */
 public class ReflectionClassFinderFactory implements ClassFinderFactory {
